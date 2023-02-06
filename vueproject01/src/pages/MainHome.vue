@@ -2,9 +2,8 @@
   <div class="main_container jcsb">
     <div class="l_container">
         <NavList 
-        :menu="menuList"
-        @clickEvent="menuClick"
-        :isMenu="isMenu" />    
+        :menuList="menuList"
+        @clickEvent="menuClick"/>    
     </div>
     <div class="r_container">
         <Header />
@@ -15,11 +14,11 @@
 <script>
 import Header from '@/components/headerLayout'
 import NavList from '@/components/NavList'
+
 export default {
     data() {
         return {
-            menuList:['메뉴1','메뉴2','메뉴3'],
-            isMenu: 0,
+            menuList:['pinia','메뉴2','메뉴3'],
         }
     },
     components: {
@@ -30,7 +29,9 @@ export default {
     },
     methods: {
         menuClick(option){
-            console.log(option)
+            if(option === 'pinia'){
+                this.$router.push('/home/pinia')
+            }
         }
     }
 }

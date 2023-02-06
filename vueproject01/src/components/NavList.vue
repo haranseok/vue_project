@@ -1,13 +1,16 @@
 <template>
     <nav>
-        <div class="logo flex">metakingz admin</div>
-        <ul>
-            <li v-for="(tab, i) in menu" :key="i"
-                :class="{active: current === i}"
-                @click="tabClick(current = i)">
-                {{ tab }}
-            </li>
-        </ul>
+        <div class="logo jcc">metakingz admin</div>
+            <ul>
+                <li v-for="(menu, i) in menuList" :key="i"
+                    class="cp"
+                    @click="tabClick(menu)">
+                    {{ menu }}
+                </li>
+            </ul>
+        <div class="nav_footer jcc">
+            secret town
+        </div>
     </nav>
 </template>
 <script>
@@ -18,43 +21,45 @@ export default {
         }
     },
     props: { 
-        menu: Object, 
-        isMenu: { type: Number } 
+        menuList: Array, 
     },
     methods: {
-        tabClick(option) {
-            this.$emit("clickEvent", option)
+        tabClick(string) {
+            this.$emit("clickEvent", string)
         }
     },
-    created() {
-        this.current = this.isMenu;
-    },
-    watch: {
-        isMenu(val) {
-            this.current = val; 
-        }
-    }
 }
 </script>
     
 <style lang="scss" scoped>
 nav{
+    position: relative;
     height: 100vh;
     color: #fff;
     background: #4c6378;
     .logo{
         height: 50px;
         font-size: 1.1rem;
-        justify-content: center;
-        align-items: center;
         text-transform: capitalize;
         background: #405364;
     }
     ul{
-        padding: 5% 0;
+        text-transform: capitalize;
         li{
             padding: 5%;
+            &:hover{
+                background: #8297ab;
+            }
         }
+    }
+    .nav_footer{
+        width: 100%;
+        position: absolute;
+        bottom:0;
+        height: 30px;
+        font-size: 10px;
+        text-transform: uppercase;
+        background: #405364;
     }
 }
 .active{

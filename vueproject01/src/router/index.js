@@ -11,11 +11,11 @@ const router = createRouter({
             path: '/home',
             name: 'Home',
             component: ()=> import('@/pages/MainHome'),
-            children: [
+            children:[
                 {
-                    path:'status',
-                    name: 'Status',
-                    component: ()=> import('@/pages/RND/VueStore')
+                    path: 'pinia',
+                    name: 'pinia',
+                    component: () => import('@/pages/RND/PiniaRnd')
                 }
             ]
         }

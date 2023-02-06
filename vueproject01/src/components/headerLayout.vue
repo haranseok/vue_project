@@ -2,7 +2,7 @@
     <header>
         <div class="h_container">
             <div class="right">
-                home
+                <span>home</span>
             </div>
         </div>
     </header>
