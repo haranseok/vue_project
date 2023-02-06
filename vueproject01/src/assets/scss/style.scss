@@ -1,7 +1,17 @@
-body{
-    background: rgb(131, 172, 172);
+ul{
+    list-style: none;
+    padding: 0;
 }
 
-.text{
-    color: lime;
+.cp{
+   cursor: pointer; 
+}
+
+/** layout */
+.flex{
+    display: flex;
+}
+.jcsb{
+    display: flex;
+    justify-content: space-between;
 }
