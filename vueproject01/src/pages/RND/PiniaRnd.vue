@@ -1,21 +1,23 @@
 <template>
     <article>
-        pinia
-        {{ counter.count }}
-        <button @click="counter.increment">plus</button>
+        pinia counter
+        <p>name: {{ counter.name }}</p>
+        <p>count: {{ counter.count }}</p>
+        <p>doubleCount: {{ counter.doubleCount }}</p>
+        <button @click="counter.increment">increment</button>
     </article>
 </template>
 <script>
-import useCounterStore from '@/store/counter.js'
+import { useCounterStore } from '@/store/counter';
 
 export default {
-    setup () {
-        const counter = useCounterStore;
-        
-        return { 
+    setup() {
+        const counter = useCounterStore()
+        return {
             counter
         }
-    }
+    },
+    
 }
 </script>
 
