@@ -5,7 +5,12 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/home'
+            redirect: '/login'
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: () => import('@/pages/Comm/AdminLogin')
         },
         {
             path: '/home',

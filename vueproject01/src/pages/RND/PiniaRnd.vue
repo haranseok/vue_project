@@ -16,11 +16,11 @@
                     <span :class="{ completed: todo.completed }">{{ todo.item }}</span>
                     <div>
                         <span class="check cp" @click.stop="toggleCompleted(todo.id)">✔</span>
-                        <span class="cp" @click="deleteTodo(todo.id)">🗑</span>
+                        <span class="cp" @click="deleteTodo(todo.id)"><v-icon>mdi-delete</v-icon></span>
                     </div>
                 </li>
             </ul>
-            <button class="cp" @click="store.$reset">전체 삭제</button>
+            <button class="cp all-delete" @click="store.$reset"><v-icon>mdi-delete</v-icon><span>전체 삭제</span></button>
         </div>
     </article>
 </template>
@@ -91,10 +91,20 @@ export default {
                     padding: 10px 0;
                     border-bottom: 1px solid #999;
                     span{
-                        margin: 0 20px;
+                        margin: 0 10px;
                     }
                 }
             }
+        }
+    }
+    .all-delete{
+        display: flex;
+        margin: 0 auto;
+        span{
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            padding-top: 3px;
         }
     }
     .completed{

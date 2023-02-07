@@ -12,8 +12,8 @@
   </div>
 </template>
 <script>
-import Header from '@/components/headerLayout'
-import NavList from '@/components/NavList'
+import Header from '@/components/layout/headerLayout'
+import NavList from '@/components/layout/NavList'
 
 export default {
     data() {

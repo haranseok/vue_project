@@ -36,7 +36,7 @@ nav{
     position: relative;
     height: 100vh;
     color: #fff;
-    background: #4c6378;
+    background: #384958;
     .logo{
         height: 50px;
         font-size: 1.1rem;
