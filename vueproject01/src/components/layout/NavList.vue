@@ -5,7 +5,8 @@
                 <li v-for="(menu, i) in menuList" :key="i"
                     class="cp"
                     @click="tabClick(menu)">
-                    {{ menu }}
+                    <v-icon>{{ menu.icon }}</v-icon>
+                    <span class="name">{{ menu.name }}</span>
                 </li>
             </ul>
         <div class="nav_footer jcc">
@@ -21,7 +22,7 @@ export default {
         }
     },
     props: { 
-        menuList: Array, 
+        menuList: { type: Array, default: () => [] },
     },
     methods: {
         tabClick(string) {
@@ -44,12 +45,15 @@ nav{
         background: #405364;
     }
     ul{
-        text-transform: capitalize;
         li{
-            padding: 5%;
+            padding: 5% 10%;
             &:hover{
                 background: #8297ab;
             }
+        }
+        .name{
+            margin-left: 10%;
+            text-transform: capitalize;
         }
     }
     .nav_footer{

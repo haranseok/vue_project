@@ -19,8 +19,13 @@ const router = createRouter({
             children:[
                 {
                     path: 'pinia',
-                    name: 'pinia',
+                    name: 'Pinia',
                     component: () => import('@/pages/RND/PiniaRnd')
+                },
+                {
+                    path: 'locale',
+                    name: 'Locale',
+                    component: () => import('@/pages/RND/LocaleRnd')
                 }
             ]
         }

@@ -8,13 +8,13 @@
             <v-card-title>sign in</v-card-title>
             <div class="input_box">
                 <v-text-field
-                    v-model="userID"
+                    v-model="userLogin.id"
                     label="ID"
                     color="#EBDEF0"
                     type="text"
                 ></v-text-field>
                 <v-text-field 
-                    v-model="userPW"
+                    v-model="userLogin.pw"
                     label="password"
                     color="#EBDEF0"
                     type="password"
@@ -32,13 +32,16 @@
         data() {
             return {
                 show: false,
-                userPW: '',
+                userLogin: {
+                    id: '',
+                    pw: '',
+                }
             }
         },
         methods: {
             login(){
-                // this.$router.push('/home/pinia');
-                console.log(this.userPW)
+                this.$router.push('/home/pinia');
+                console.log(this.userLogin)
             }
         }
     }

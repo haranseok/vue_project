@@ -18,7 +18,10 @@ import NavList from '@/components/layout/NavList'
 export default {
     data() {
         return {
-            menuList:['pinia','메뉴2','메뉴3'],
+            menuList: [
+                { name:'pinia', icon:'mdi-fruit-pineapple' },
+                { name:'locale', icon:'mdi-translate' }
+            ],
         }
     },
     components: {
@@ -29,8 +32,11 @@ export default {
     },
     methods: {
         menuClick(option){
-            if(option === 'pinia'){
+            console.log(option)
+            if(option.name === 'pinia'){
                 this.$router.push('/home/pinia')
+            }else if(option.name === 'locale'){
+                this.$router.push('/home/locale')
             }
         }
     }

@@ -2,7 +2,7 @@
     <header>
         <div class="h_container">
             <div class="right">
-                <span><v-icon>mdi-home-account</v-icon></span>
+                <span><v-icon>mdi-account-heart</v-icon></span>
             </div>
         </div>
     </header>
