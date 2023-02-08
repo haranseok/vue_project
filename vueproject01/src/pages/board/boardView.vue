@@ -1,6 +1,5 @@
 <template>
     <article>
-        <h2>board</h2>
         <component :is="currentPage" 
             @boardDetail="trData"
             @backBoard="back"
@@ -31,8 +30,8 @@ import write from '@/pages/board/boardWrite'
             back(val){
                 this.currentPage = val
             },
-            update(){
-                this.currentPage = 'write'
+            update(val){
+                this.currentPage = val
             },
             cencel(){
                 this.currentPage = 'table'

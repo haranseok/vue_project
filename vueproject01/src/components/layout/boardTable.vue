@@ -1,5 +1,6 @@
 <template>
     <div class="table_container">
+        <h1>board</h1>
         <div class="search">
             <searchBar
                 @searchEvent="search"
@@ -63,7 +64,7 @@ import data from '@/data/board.js';
             this.$emit('boardDetail', event.currentTarget)
         },
         write(){
-            this.$emit('update')
+            this.$emit('update', 'write')
         }
     },
   }
@@ -73,6 +74,9 @@ import data from '@/data/board.js';
         width: 100%;
         height: 500px;
         padding: 3%;
+        h1{
+            text-transform: capitalize;
+        }
         .search{
             float: right;
         }
