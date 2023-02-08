@@ -8,20 +8,22 @@
             <v-card-title>sign in</v-card-title>
             <div class="input_box">
                 <v-text-field
-                    v-model="userLogin.id"
+                    v-model="login.id"
                     label="ID"
                     color="#EBDEF0"
                     type="text"
+                    :rules="idRule"
                 ></v-text-field>
                 <v-text-field 
-                    v-model="userLogin.pw"
-                    label="password"
+                    v-model="login.pw"
+                    label="Password"
                     color="#EBDEF0"
                     type="password"
+                    :rules="[pwrules.required, pwrules.min]"
                 ></v-text-field>
             </div>
             <v-btn 
-            @click="login()"
+            @click="loginSend()"
             color="#cdcdcdf5"
             >login</v-btn>
         </v-card>
@@ -32,16 +34,23 @@
         data() {
             return {
                 show: false,
-                userLogin: {
+                login: {
                     id: '',
                     pw: '',
-                }
+                },
+                idRule: [
+                    value => !!value || '아이디를 입력해주세요.',
+                    value => (value && value.length >= 6) || '6자 이상 입력해주세요.'
+                ],
+                pwrules: {
+                    required: value => !!value || '비밀번호를 입력해주세요.',
+                    min: v => v.length >= 8 || '8자 이상 입력해주세요.',
+                },
             }
         },
         methods: {
-            login(){
+            loginSend(){
                 this.$router.push('/home/pinia');
-                console.log(this.userLogin)
             }
         }
     }

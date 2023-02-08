@@ -26,7 +26,12 @@ const router = createRouter({
                     path: 'locale',
                     name: 'Locale',
                     component: () => import('@/pages/RND/LocaleRnd')
-                }
+                },
+                {
+                    path: 'board',
+                    name: 'Board',
+                    component: () => import('@/pages/board/boardView')
+                },
             ]
         }
 

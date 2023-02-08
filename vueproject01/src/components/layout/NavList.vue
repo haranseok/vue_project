@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <div class="logo jcc">metakingz admin</div>
+        <div class="logo jcc">admin</div>
             <ul>
                 <li v-for="(menu, i) in menuList" :key="i"
                     class="cp"

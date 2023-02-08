@@ -19,8 +19,9 @@ export default {
     data() {
         return {
             menuList: [
-                { name:'pinia', icon:'mdi-fruit-pineapple' },
-                { name:'locale', icon:'mdi-translate' }
+                { name: 'pinia', icon: 'mdi-fruit-pineapple' },
+                { name: 'locale', icon: 'mdi-translate' },
+                { name: 'board', icon: 'mdi-bulletin-board' }
             ],
         }
     },
@@ -32,11 +33,12 @@ export default {
     },
     methods: {
         menuClick(option){
-            console.log(option)
             if(option.name === 'pinia'){
                 this.$router.push('/home/pinia')
             }else if(option.name === 'locale'){
                 this.$router.push('/home/locale')
+            }else if(option.name === 'board'){
+                this.$router.push('/home/board')
             }
         }
     }
