@@ -11,6 +11,12 @@ input{
 .cp{
    cursor: pointer; 
 }
+table{
+    border-collapse: collapse;
+}
+th, td{
+    padding: 10px;
+}
 
 /** layout */
 .flex{

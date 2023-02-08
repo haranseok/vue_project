@@ -1,23 +1,42 @@
 <template>
     <article>
         <h2>board</h2>
-        <button v-for="demos in demo" :key="demos" @click="currentPage = demos">{{ demos }}</button>
-        <component :is="currentPage"></component>
+        <component :is="currentPage" 
+            @boardDetail="trData"
+            @backBoard="back"
+            @update="update"
+            @writeCencel="cencel"></component>
     </article>
 </template>
 <script>
 import table from '@/components/layout/boardTable';
-import detail from '@/pages/board/boardDetail.vue';
+import detail from '@/pages/board/boardDetail';
+import write from '@/pages/board/boardWrite'
     export default {
         data(){
             return {
                 currentPage: 'table',
-                demo: ['table','detail']
             }    
         },
         components: {
             table,
-            detail
+            detail,
+            write
+        },
+        methods:{
+            trData(val){
+                this.currentPage = 'detail'
+                console.log(val)
+            },
+            back(val){
+                this.currentPage = val
+            },
+            update(){
+                this.currentPage = 'write'
+            },
+            cencel(){
+                this.currentPage = 'table'
+            }
         }       
     }
 </script>
