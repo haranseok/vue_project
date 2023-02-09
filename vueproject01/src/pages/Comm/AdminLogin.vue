@@ -8,39 +8,45 @@
             <v-card-title>sign in</v-card-title>
             <div class="input_box">
                 <v-text-field
-                    v-model="login.id"
+                    v-model="login.username"
                     label="ID"
                     color="#EBDEF0"
                     type="text"
                     :rules="idRule"
                 ></v-text-field>
                 <v-text-field 
-                    v-model="login.pw"
+                    v-model="login.password"
                     label="Password"
                     color="#EBDEF0"
                     type="password"
                     :rules="[pwrules.required, pwrules.min]"
+                    @keyup.enter="loginSend()"
                 ></v-text-field>
             </div>
             <v-btn 
             @click="loginSend()"
             color="#cdcdcdf5"
             >login</v-btn>
+            <span class="cp" @click="this.isShow = true">회원가입</span>
         </v-card>
+        <Popup 
+            :isShow="isShow"
+            @close="this.isShow = false"/>
     </article>
 </template>
 <script>
+import Popup from '@/components/popup/SignUpPopup'
     export default {
         data() {
             return {
-                show: false,
+                isShow: false,
                 login: {
-                    id: '',
-                    pw: '',
+                    username: '',
+                    password: '',
                 },
                 idRule: [
                     value => !!value || '아이디를 입력해주세요.',
-                    value => (value && value.length >= 6) || '6자 이상 입력해주세요.'
+                    value => (value && value.length >= 3) || '3자 이상 입력해주세요.'
                 ],
                 pwrules: {
                     required: value => !!value || '비밀번호를 입력해주세요.',
@@ -50,8 +56,26 @@
         },
         methods: {
             loginSend(){
-                this.$router.push('/home/pinia');
+                let apiUrl = process.env.VUE_APP_API_URL;
+                try {
+                    this.axios.post(`${apiUrl}/user/sign_in`, this.login)
+                    .then((res) => {
+                        if(res.data.code === 200){
+                            let user = {
+                                token: res.data.data,
+                                username: this.login.username
+                            };
+                            sessionStorage.setItem("userInfo", JSON.stringify(user))
+                            this.$router.push('/home/pinia')
+                        }
+                    })
+                } catch (error) {
+                    console.log(error)
+                }
             }
+        },
+        components: {
+            Popup
         }
     }
 </script>
@@ -77,6 +101,13 @@ article{
         .v-btn{
             width: 100%;
             color: #515151
+        }
+        span{
+            display: block;
+            margin-top: 20px;
+            color:#d9d9e4;
+            text-align: center;
+            text-decoration: underline;
         }
     }
 }
