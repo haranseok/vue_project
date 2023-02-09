@@ -15,7 +15,9 @@
                 </thead>
                 <tbody>
                     <tr v-for="(tr, i) in table.td" :key="i" @click="boardDate($event)">
-                        <td v-for="(td, j) in tr" :key="j">{{ td }}</td>
+                        <td v-for="(td, j) in tr" :key="j">
+                            {{ td }}
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -26,7 +28,7 @@
         </div>
         <v-pagination
             v-model="page"
-            :length="6">
+            :length="5">
         </v-pagination>
     </div>
 </template>
@@ -37,6 +39,8 @@ import data from '@/data/board.js';
   export default {
     data () {
       return {
+        page:1,
+        pageSize: 5,
         table: {
             th: ['no.','제목','작성자','작성날짜'],
             td: []
@@ -65,7 +69,7 @@ import data from '@/data/board.js';
         },
         write(){
             this.$emit('update', 'write')
-        }
+        },
     },
   }
 </script>
