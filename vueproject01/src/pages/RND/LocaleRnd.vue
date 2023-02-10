@@ -6,8 +6,8 @@
                 <h3>{{ $t('title') }}</h3>
                 <p>{{ $t('message') }}</p>
             </div>
-            <button @click="$i18n.locale='ko'">한국어</button>
-            <button @click="$i18n.locale='en'">english</button>
+            <!-- <button @click="$i18n.locale='ko'">한국어</button>
+            <button @click="$i18n.locale='en'">english</button> -->
         </section>
     </article>
 </template>

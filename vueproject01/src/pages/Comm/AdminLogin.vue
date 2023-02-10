@@ -8,14 +8,14 @@
             <v-card-title>sign in</v-card-title>
             <div class="input_box">
                 <v-text-field
-                    v-model="login.username"
+                    v-model="userInfo.login.username"
                     label="ID"
                     color="#EBDEF0"
                     type="text"
                     :rules="idRule"
                 ></v-text-field>
-                <v-text-field 
-                    v-model="login.password"
+                <v-text-field
+                    v-model="userInfo.login.password" 
                     label="Password"
                     color="#EBDEF0"
                     type="password"
@@ -35,15 +35,14 @@
     </article>
 </template>
 <script>
-import Popup from '@/components/popup/SignUpPopup'
+import Popup from '@/components/popup/SignUpPopup';
+import { useUserInfoStore } from '@/store/userInfo';
     export default {
-        data() {
+        setup() {
+            const userInfo = useUserInfoStore();
             return {
+                userInfo,
                 isShow: false,
-                login: {
-                    username: '',
-                    password: '',
-                },
                 idRule: [
                     value => !!value || '아이디를 입력해주세요.',
                     value => (value && value.length >= 3) || '3자 이상 입력해주세요.'
@@ -55,22 +54,12 @@ import Popup from '@/components/popup/SignUpPopup'
             }
         },
         methods: {
-            loginSend(){
+           async loginSend(){
                 let apiUrl = process.env.VUE_APP_API_URL;
-                try {
-                    this.axios.post(`${apiUrl}/user/sign_in`, this.login)
-                    .then((res) => {
-                        if(res.data.code === 200){
-                            let user = {
-                                token: res.data.data,
-                                username: this.login.username
-                            };
-                            sessionStorage.setItem("userInfo", JSON.stringify(user))
-                            this.$router.push('/home/pinia')
-                        }
-                    })
-                } catch (error) {
-                    console.log(error)
+                const res = await this.axios.post(`${apiUrl}/user/sign_in`, this.userInfo.login)
+                if(res.data.code === 200) {
+                    this.userInfo.token = {access_token:res.data.data}
+                    this.$router.push('/home/pinia')
                 }
             }
         },

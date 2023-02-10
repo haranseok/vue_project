@@ -3,11 +3,23 @@
         <div class="h_container">
             <div class="right">
                 <span><v-icon>mdi-account-heart</v-icon></span>
+                <span @click="this.locale = !this.locale" class="locale"><v-icon>mdi-web</v-icon></span>
+                <ul v-if="locale">
+                    <li @click="$i18n.locale='ko'">한국어</li>
+                    <li  @click="$i18n.locale='en'">english</li>
+                </ul>
             </div>
         </div>
     </header>
 </template>
 <script>
+export default {
+    data() {
+        return {
+            locale: false
+        }
+    }
+}
 </script>
 <style lang="scss" scoped>
     header{
@@ -23,6 +35,28 @@
             align-items: center;
             text-transform: capitalize;
             font-weight: bold;
+            .right{
+                span{
+                    margin: 0 5px;
+                    cursor: pointer;
+                }
+                ul{
+                    position:absolute;
+                    border-radius: 3px;
+                    background: #bdcfd1;
+                    text-transform: capitalize;
+                    li{
+                        font-size: 14px;
+                        padding: 8px 5px;
+                        cursor: pointer;
+                        &:hover{
+                            transition: 0.2s;
+                            color: #dadada;
+                            background: rgba(69, 81, 82, 0.5);
+                        }
+                    }
+                }
+            }
         }
     }
 </style>

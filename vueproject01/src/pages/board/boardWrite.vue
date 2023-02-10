@@ -4,7 +4,7 @@
         <input class="date" type="text" v-model="today">
         <div class="write_box">
             <input class="text" type="text" v-model="title" placeholder="제목">
-            <input class="text" type="text" v-model="writer" disabled>
+            <input class="text" type="text" v-model="userInfo.login.username" disabled>
             <textarea v-model="content" placeholder="내용을 입력해주세요."></textarea>
         </div>
         <v-btn @click="update" color="#395B64" class="writeBtn">작성</v-btn>
@@ -13,19 +13,20 @@
 </template>
 <script>
 import data from '@/data/board';
+import { useUserInfoStore } from '@/store/userInfo';
 
+const userInfo = useUserInfoStore();
 export default {
     data(){
         return {
             no:'',
             today: '',
             title: '',
-            writer: '',
             content: '',
+            userInfo,
         }
     },
     created(){
-        this.writer = JSON.parse(sessionStorage.getItem('userInfo')).username
         let date = new Date;
         this.today = date.getFullYear() + '-' + '0'+(date.getMonth()+1) + '-' + '0'+date.getDate()
     },
