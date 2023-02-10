@@ -14,9 +14,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(tr, i) in table.td" :key="i" @click="boardDate($event)">
+                    <tr v-for="(tr, i) in table.td" :key="i">
                         <td v-for="(td, j) in tr" :key="j">
-                            {{ td }}
+                            <div v-if="j < 4">{{ td }}</div>
+                            <v-btn v-else>
+                                <div v-if="j !== 5" @click="change(tr)">{{ td }}</div>
+                                <v-icon v-else @click="deleteBtn(tr)">mdi-{{ td }}</v-icon>
+                            </v-btn>
                         </td>
                     </tr>
                 </tbody>
@@ -34,13 +38,18 @@
 </template>
 <script>
 import searchBar from '@/components/item/input/searchInput';
-import data from '@/data/board.js';
+import { useUserInfoStore } from '@/store/userInfo';
 
+const token = useUserInfoStore()
+
+let apiUrl = process.env.VUE_APP_API_URL;
+          
   export default {
     data () {
       return {
         page:1,
         pageSize: 5,
+        id: null,
         table: {
             th: ['no.','제목','작성자','작성날짜'],
             td: []
@@ -48,24 +57,39 @@ import data from '@/data/board.js';
       }
     },
     created(){
-        data.forEach((e) => {
-            let list = [];
-            list.push(e['no'])
-            list.push(e['title'])
-            list.push(e['writer'])
-            list.push(e['date'])
-            this.table.td.push(list)
-        })
+        console.log(token.token)
     },
     components: {
         searchBar
     },
     methods: {
+        getList(){
+            this.axios.get(`${apiUrl}/board/list`, {
+                headers:token.token,
+            }).then((res)=>{
+                res.data.data.forEach((e) => {
+                let list = [];
+                list.push(e['id'])
+                list.push(e['title'])
+                list.push(e['users_id'])
+                list.push(e['created_at'])
+                list.push('수정')
+                list.push('delete-circle-outline')
+                this.table.td.push(list)
+            })
+        })
+    },
         search(value){
             console.log(value)
         },
-        boardDate(event){
-            this.$emit('boardDetail', event.currentTarget)
+        change(event){
+            console.log(event)
+            // this.$emit('boardDetail', event.currentTarget)
+        },
+       async deleteBtn(tr){
+            console.log(typeof `${tr[0]}`)
+            let id = `${tr[0]}`
+            await this.axios.post(`${apiUrl}/board/delete`,{id:id},{headers:token.token}) //url, body, header 순으로 인자를 넘겨줘야함.
         },
         write(){
             this.$emit('update', 'write')
