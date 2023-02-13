@@ -43,6 +43,7 @@ export default {
     methods: {
         updateBtn(option){
             this.$emit('updateWrite', option, this.boardData)
+            if(option === 1){this.boardData = {}}
         }
     },
     watch: {

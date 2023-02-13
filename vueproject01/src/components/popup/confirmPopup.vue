@@ -6,12 +6,13 @@
             <p v-if="textShow">{{ text }}</p>
             <div class="btnBox">
                 <v-btn 
-                variant="outlined"
-                @click="btnEvent(0)">{{ btnText }}</v-btn>
+                    variant="plain"
+                    @click="btnEvent(0)">{{ btnText }}</v-btn>
                 <v-btn
                     @click="btnEvent(1)"
                     v-if="cencleBtn"
-                    color="#006064">삭제</v-btn>
+                    color="error"
+                    variant="plain">삭제</v-btn>
             </div>
         </v-card>
     </div>
@@ -81,10 +82,7 @@
         width: 100%;
         text-align: right;
         .v-btn{
-            &:nth-child(2){
-                margin-left: 15px;
-                color:#e5e4e4;
-            }
+            font-weight: bold;
         }
     }
 }

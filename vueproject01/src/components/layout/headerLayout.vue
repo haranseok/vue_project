@@ -9,6 +9,9 @@
                     <li  @click="$i18n.locale='en'">english</li>
                 </ul>
             </div>
+            <!-- <div class="breadCrumbs">
+                <v-breadcrumbs :items="breadcrumbs"></v-breadcrumbs>
+            </div> -->
         </div>
     </header>
 </template>
@@ -18,23 +21,25 @@ export default {
         return {
             locale: false
         }
-    }
+    },
+    // props: { breadcrumbs : { type:Array, defualt: () => [] } }
 }
 </script>
 <style lang="scss" scoped>
     header{
         width: 100%;
-        height: 50px;
-        background: #f2f2f2;
+        background: #fffefe;
+        box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.2);
         .h_container{
             width: 90%;
-            height: 50px;
+            height: 60px;
             margin: 0 auto;
-            display: flex;
-            justify-content: end;
             align-items: center;
             text-transform: capitalize;
             font-weight: bold;
+            display: flex;
+            justify-content: end;
+                align-items: center;
             .right{
                 span{
                     margin: 0 5px;
@@ -56,6 +61,9 @@ export default {
                         }
                     }
                 }
+            }
+            .breadCrumbs{
+                padding: 20px 0;
             }
         }
     }

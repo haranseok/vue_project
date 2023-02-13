@@ -18,7 +18,9 @@
                         <td v-for="(td, j) in tr" :key="j">
                             <div v-if="j < 4">{{ td }}</div>
                             <div v-else>
-                                <v-btn @click.stop="deleteData(tr)"><v-icon>mdi-{{ td }}</v-icon></v-btn>
+                                <v-btn @click.stop="deleteData(tr)"
+                                color="#222" variant="plain">
+                                <v-icon>mdi-{{ td }}</v-icon></v-btn>
                             </div>
                         </td>
                     </tr>
@@ -27,7 +29,7 @@
         </div>
         <div class="btnBox">
             <v-btn @click="setWrite"
-                color="#395B64">글쓰기</v-btn>
+                color="#395B64">작성</v-btn>
         </div>
         <v-pagination
             v-model="page"
@@ -42,7 +44,7 @@
             :isTextShow="isTextShow"
             @close="this.isConfirm = false"
             @confirmBtn="confirmBtn"/>
-            <Update 
+            <Create 
                 :isUpdate="isUpdate"
                 :sendBtnText="sendBtnText"
                 @updateWrite="updateWrite"
@@ -52,7 +54,7 @@
 <script>
 import searchBar from '@/components/item/input/searchInput';
 import confirm from '@/components/popup/confirmPopup';
-import Update from '@/pages/board/boardWrite';
+import Create from '@/pages/board/boardCreate';
 import { useUserInfoStore } from '@/store/userInfo';
 import { useBoardInfoStore } from '@/store/board';
 
@@ -81,7 +83,7 @@ let apiUrl = process.env.VUE_APP_API_URL;
     components: {
         searchBar,
         confirm,
-        Update,
+        Create,
     },
     methods: {
         getList(){
@@ -139,6 +141,7 @@ let apiUrl = process.env.VUE_APP_API_URL;
                 await this.axios.post(`${apiUrl}/board/create`, data, {headers: token.token})
                 this.table.td = []
                 this.getList()
+                this.isUpdate = false;
             }
         },
         getDetailPage(content){
@@ -158,6 +161,7 @@ let apiUrl = process.env.VUE_APP_API_URL;
         }
         .search{
             float: right;
+            background: #fff;
         }
     }
     
@@ -168,6 +172,7 @@ let apiUrl = process.env.VUE_APP_API_URL;
             width: 100%;
             font-size: 0.9rem;
             border-radius: 3px;
+            background: #fff;
             box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.2);
             thead{
                 tr{

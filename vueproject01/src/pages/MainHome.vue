@@ -1,12 +1,12 @@
 <template>
   <div class="main_container jcsb">
     <div class="l_container">
-        <NavList 
-        :menuList="menuList"
+        <NavList
         @clickEvent="menuClick"/>    
     </div>
     <div class="r_container">
-        <Header />
+        <Header 
+        :breadcrumbs="breadcrumbs"/>
         <router-view />
     </div>
   </div>
@@ -16,29 +16,26 @@ import Header from '@/components/layout/headerLayout'
 import NavList from '@/components/layout/NavList'
 
 export default {
-    data() {
+    data(){
         return {
-            menuList: [
-                { name: 'pinia', icon: 'mdi-fruit-pineapple' },
-                { name: 'locale', icon: 'mdi-translate' },
-                { name: 'board', icon: 'mdi-bulletin-board' },
-                { name: 'chatting' , icon: 'mdi-wechat'}
-            ],
+            breadcrumbs:['home',]
         }
     },
     components: {
         Header,
         NavList,
     },
-    created() {
+    watch: {
+        $route(route){this.breadcrumbs.push(route.name)}
     },
     methods: {
         menuClick(option){
-            if(option.name === 'pinia'){
+         console.log(option)
+            if(option === 'Pinia'){
                 this.$router.push('/home/pinia')
-            }else if(option.name === 'locale'){
+            }else if(option === 'Locale'){
                 this.$router.push('/home/locale')
-            }else if(option.name === 'board'){
+            }else if(option === 'Board'){
                 this.$router.push('/home/board')
             }else{
                 this.$router.push('/home/chatting')
@@ -50,6 +47,7 @@ export default {
 
 <style lang="scss">
 .main_container{
+    background: #f6f8f7;
     .l_container{
         width: 15%;
         height: 100%;

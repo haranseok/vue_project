@@ -3,8 +3,8 @@
         <h1>board details</h1>
         <article>
             <section>
-                <input type="text" v-model="title">
-                <textarea v-model="content"></textarea>
+                <h3>제목 : {{ title }}</h3>
+                <div class="content_box">{{ content }}</div>
             </section>
         </article>
         <v-btn @click="back">목록</v-btn>
@@ -37,9 +37,7 @@ let apiUrl = process.env.VUE_APP_API_URL;
                   })
                   this.title = res.data.data.title;
                   this.content = res.data.data.content;
-        },
-
-
+            },
             back(){
                 this.$emit('backBoard', 'table')
             }
@@ -56,5 +54,10 @@ let apiUrl = process.env.VUE_APP_API_URL;
 }
 article{
     margin: 5% 0;
+    section{
+        width: 100%;
+        padding: 3%;
+        background: #fff;
+    }
 }
 </style>
