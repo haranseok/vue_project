@@ -1,18 +1,20 @@
 <template>
-    <div class="container">
-        <h2>게시글 작성</h2>
-        <input class="date" type="text" v-model="today">
-        <div class="write_box">
-            <input class="text" type="text" v-model="title" placeholder="제목">
-            <input class="text" type="text" v-model="userInfo.login.username" disabled>
-            <textarea v-model="content" placeholder="내용을 입력해주세요."></textarea>
-        </div>
-        <v-btn @click="update" color="#395B64" class="writeBtn">작성</v-btn>
-        <v-btn @click="cancel">취소</v-btn>
+    <div v-if="updateWrite">
+        <div class="back_bg" @click="$emit('close')"></div>
+        <v-card>
+            <h2>게시글 작성</h2>
+            <input class="date" type="text" v-model="today">
+            <div class="write_box">
+                <input class="text" type="text" v-model="boardData.title" placeholder="제목">
+                <input class="text" type="text" v-model="userInfo.username" disabled>
+                <textarea v-model="boardData.content" placeholder="내용을 입력해주세요."></textarea>
+            </div>
+            <v-btn @click="updateBtn(0)">취소</v-btn>
+            <v-btn @click="updateBtn(1)" color="#006064" class="writeBtn">{{ sendBtnText }}</v-btn>
+        </v-card>
     </div>
 </template>
 <script>
-import data from '@/data/board';
 import { useUserInfoStore } from '@/store/userInfo';
 
 const userInfo = useUserInfoStore();
@@ -21,39 +23,56 @@ export default {
         return {
             no:'',
             today: '',
-            title: '',
-            content: '',
-            userInfo,
+            boardData:{
+                title: '',
+                content: '',
+            },
+            updateWrite: false,
+            userInfo
         }
+    },
+    props: {
+        isUpdate : Boolean,
+        sendBtnText: String
     },
     created(){
         let date = new Date;
-        this.today = date.getFullYear() + '-' + '0'+(date.getMonth()+1) + '-' + '0'+date.getDate()
+        this.today = date.getFullYear() + '-' + '0'+(date.getMonth()+1) + '-' +date.getDate();
+        this.updateWrite = this.isUpdate
     },
     methods: {
-        cancel(){
-            this.$emit('backBoard','table')
-        },
-        update(){
-            this.no = data.length+1
-            data.push({
-                no: this.no,
-                writer: this.writer,
-                date: this.today,
-                title: this.title,
-                content: this.content
-            })
-            this.$emit('update','table')
+        updateBtn(option){
+            this.$emit('updateWrite', option, this.boardData)
+        }
+    },
+    watch: {
+        isUpdate(val){
+            this.updateWrite = val
         }
     }        
 }
 </script>
 
 <style lang="scss" scoped>
-.container{
+.back_bg{
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    margin: 5% 0;
+    height: 100%;
+    background: rgba(0,0,0,0.2);
+}
+
+.v-card{
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
     text-align: center;
+    h2{
+        margin-bottom: 20px;
+    }
     .date{
         float: right;
         margin-bottom: 20px;
@@ -71,6 +90,9 @@ export default {
         border-radius: 3px;
         box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.2);
         resize: none;
+    }
+    textarea{
+        height: 150px;
     }
 }
 .v-btn{
