@@ -22,10 +22,6 @@ import write from '@/pages/board/boardWrite'
             write
         },
         methods:{
-            // trData(val){
-            //     this.currentPage = 'detail'
-            //     console.log(val)
-            // },
             back(val){
                 this.currentPage = val
             },

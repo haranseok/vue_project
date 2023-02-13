@@ -17,10 +17,10 @@
                     <tr v-for="(tr, i) in table.td" :key="i">
                         <td v-for="(td, j) in tr" :key="j">
                             <div v-if="j < 4">{{ td }}</div>
-                            <v-btn v-else>
-                                <div v-if="j !== 5" @click="change(tr)">{{ td }}</div>
-                                <v-icon v-else @click="deleteBtn(tr)">mdi-{{ td }}</v-icon>
-                            </v-btn>
+                            <div v-else>
+                                <v-btn v-if="j !== 5" @click="change(tr)">{{ td }}</v-btn>
+                                <v-btn v-else @click="deleteBtn(tr)"><v-icon >mdi-{{ td }}</v-icon></v-btn>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -34,10 +34,23 @@
             v-model="page"
             :length="5">
         </v-pagination>
+        <confirm 
+            :title="title"
+            :text="text"
+            :isConfirm="isConfirm"
+            @close="this.isConfirm = false"
+            @confirmBtn="confirmBtn"/>
+            <Update 
+                :isUpdate="isUpdate"
+                :sendBtnText="sendBtnText"
+                @updateWrite="updateWrite"
+                @close="this.isUpdate = false"/>
     </div>
 </template>
 <script>
 import searchBar from '@/components/item/input/searchInput';
+import confirm from '@/components/popup/confirmPopup';
+import Update from '@/pages/board/boardWrite';
 import { useUserInfoStore } from '@/store/userInfo';
 
 const token = useUserInfoStore()
@@ -49,6 +62,8 @@ let apiUrl = process.env.VUE_APP_API_URL;
       return {
         page:1,
         pageSize: 5,
+        isConfirm: false,
+        isUpdate: false,
         id: null,
         table: {
             th: ['no.','제목','작성자','작성날짜'],
@@ -57,10 +72,12 @@ let apiUrl = process.env.VUE_APP_API_URL;
       }
     },
     created(){
-        console.log(token.token)
+        this.getList()
     },
     components: {
-        searchBar
+        searchBar,
+        confirm,
+        Update
     },
     methods: {
         getList(){
@@ -69,31 +86,58 @@ let apiUrl = process.env.VUE_APP_API_URL;
             }).then((res)=>{
                 res.data.data.forEach((e) => {
                 let list = [];
-                list.push(e['id'])
-                list.push(e['title'])
-                list.push(e['users_id'])
-                list.push(e['created_at'])
-                list.push('수정')
-                list.push('delete-circle-outline')
-                this.table.td.push(list)
+                    list.push(e['id'])
+                    list.push(e['title'])
+                    list.push(e['users_id'])
+                    list.push(e['created_at'])
+                    list.push('수정')
+                    list.push('delete-circle-outline')
+                    this.table.td.push(list)
+                })
             })
-        })
-    },
+        },
         search(value){
             console.log(value)
         },
-        change(event){
-            console.log(event)
-            // this.$emit('boardDetail', event.currentTarget)
+        async change(tr){
+            this.id = `${tr[0]}`
+            const res = await this.axios.get(`${apiUrl}/board/get_one`,
+                  { params:{id:this.id}, 
+                    headers:token.token
+                  })
+                  this.isUpdate = true;
+                  this.sendBtnText = '수정'
+                  this.updateWrite(option, data)
+                  console.log(data)
+            console.log(res)
         },
-       async deleteBtn(tr){
-            console.log(typeof `${tr[0]}`)
-            let id = `${tr[0]}`
-            await this.axios.post(`${apiUrl}/board/delete`,{id:id},{headers:token.token}) //url, body, header 순으로 인자를 넘겨줘야함.
+        deleteBtn(tr){
+            this.id = `${tr[0]}`
+            this.isConfirm = true;
+            this.title = '정말로 삭제하시겠습니까?'
+            this.text = '삭제한 게시물은 복구가 불가능합니다.'
+        },
+        async confirmBtn(option){
+            if(option === 1) {
+            // url, body, header 순으로 인자를 넘겨줘야함
+            await this.axios.post(`${apiUrl}/board/delete`,{id:this.id},{headers:token.token});
+            this.$router.go();
+            }else{
+                this.isConfirm = false;
+            }
         },
         write(){
-            this.$emit('update', 'write')
+            this.sendBtnText = '작성'
+            this.isUpdate = true;
         },
+       async updateWrite(option, data) {
+            if(option === 0) {
+                this.isUpdate = false;
+            }else{
+                await this.axios.post(`${apiUrl}/board/create`,data,{headers: token.token})
+            this.$router.go();
+            }
+        }
     },
   }
 </script>
@@ -155,6 +199,10 @@ let apiUrl = process.env.VUE_APP_API_URL;
     float: right;
     .v-btn{
         color: #dddddd;
+        padding:0;
+        .v-icon{
+            font-size: 1rem;
+        }
     }
 }
 .v-pagination{

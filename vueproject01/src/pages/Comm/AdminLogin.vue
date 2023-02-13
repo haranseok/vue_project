@@ -8,14 +8,14 @@
             <v-card-title>sign in</v-card-title>
             <div class="input_box">
                 <v-text-field
-                    v-model="userInfo.login.username"
+                    v-model="userInfo.username"
                     label="ID"
                     color="#EBDEF0"
                     type="text"
                     :rules="idRule"
                 ></v-text-field>
                 <v-text-field
-                    v-model="userInfo.login.password" 
+                    v-model="password" 
                     label="Password"
                     color="#EBDEF0"
                     type="password"
@@ -43,6 +43,7 @@ import { useUserInfoStore } from '@/store/userInfo';
             return {
                 userInfo,
                 isShow: false,
+                password:'',
                 idRule: [
                     value => !!value || '아이디를 입력해주세요.',
                     value => (value && value.length >= 3) || '3자 이상 입력해주세요.'
@@ -56,7 +57,7 @@ import { useUserInfoStore } from '@/store/userInfo';
         methods: {
            async loginSend(){
                 let apiUrl = process.env.VUE_APP_API_URL;
-                const res = await this.axios.post(`${apiUrl}/user/sign_in`, this.userInfo.login)
+                const res = await this.axios.post(`${apiUrl}/user/sign_in`, {username:this.userInfo.username, password:this.password})
                 if(res.data.code === 200) {
                     this.userInfo.token = {access_token:res.data.data}
                     this.$router.push('/home/pinia')

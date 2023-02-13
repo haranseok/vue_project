@@ -32,6 +32,12 @@ const router = createRouter({
                     name: 'Board',
                     component: () => import('@/pages/board/boardView')
                 },
+                {
+                    path: 'chatting',
+                    name: 'Chatting',
+                    component: () => import('@/pages/ChattingApp')
+                },
+
             ]
         }
 

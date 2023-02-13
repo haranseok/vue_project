@@ -21,7 +21,8 @@ export default {
             menuList: [
                 { name: 'pinia', icon: 'mdi-fruit-pineapple' },
                 { name: 'locale', icon: 'mdi-translate' },
-                { name: 'board', icon: 'mdi-bulletin-board' }
+                { name: 'board', icon: 'mdi-bulletin-board' },
+                { name: 'chatting' , icon: 'mdi-wechat'}
             ],
         }
     },
@@ -39,6 +40,8 @@ export default {
                 this.$router.push('/home/locale')
             }else if(option.name === 'board'){
                 this.$router.push('/home/board')
+            }else{
+                this.$router.push('/home/chatting')
             }
         }
     }
