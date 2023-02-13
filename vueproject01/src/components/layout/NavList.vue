@@ -16,10 +16,6 @@
 </template>
 <script>
 export default {
-    data() {
-        return {
-        }
-    },
     props: { 
         menuList: { type: Array, default: () => [] },
     },

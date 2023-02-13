@@ -2,34 +2,33 @@
     <article>
         <component :is="currentPage" 
             @backBoard="back"
-            @update="update"
-            @writeCencel="cencel"></component>
+            @detailPage="detailPage"
+            @boardHome="boardHome"></component>
     </article>
 </template>
 <script>
-import table from '@/components/layout/boardTable';
+import table from '@/pages/board/boardTable';
 import detail from '@/pages/board/boardDetail';
-import write from '@/pages/board/boardWrite'
     export default {
         data(){
             return {
                 currentPage: 'table',
+                id: null
             }    
         },
         components: {
             table,
             detail,
-            write
         },
         methods:{
             back(val){
                 this.currentPage = val
             },
-            update(val){
-                this.currentPage = val
+            detailPage(pageView){
+                this.currentPage = pageView
             },
-            cencel(){
-                this.currentPage = 'table'
+            boardHome(view) {
+                this.currentPage = view
             }
         }       
     }

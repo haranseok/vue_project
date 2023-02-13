@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       messages: [],
-      socket : io('localhost:3001')
+      socket : io('http://3.39.184.23:5002')
     }
   },
   methods: {

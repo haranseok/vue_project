@@ -2,12 +2,15 @@
     <div v-if="confirm">
         <div class="popup_bg" @click="$emit('close')"></div>
         <v-card>
-            <h3>{{ title }}</h3>
-            <p>{{ text }}</p>
+            <h4>{{ title }}</h4>
+            <p v-if="textShow">{{ text }}</p>
             <div class="btnBox">
-                <v-btn @click="btnEvent(0)">취소</v-btn>
+                <v-btn 
+                variant="outlined"
+                @click="btnEvent(0)">{{ btnText }}</v-btn>
                 <v-btn
                     @click="btnEvent(1)"
+                    v-if="cencleBtn"
                     color="#006064">삭제</v-btn>
             </div>
         </v-card>
@@ -18,12 +21,17 @@
         data(){
             return {
                 confirm: false,
+                cencleBtn: true,
+                textShow: true
             }
         },
         props:{ 
             isConfirm: Boolean,
+            isCencle: Boolean,
+            isTextShow: Boolean,
             title: String,
             text: String,
+            btnText: String,
             },
         created(){
             this.confirm = this.isConfirm;
@@ -36,6 +44,12 @@
         watch:{
             isConfirm(val){
                 this.confirm = val;
+            },
+            isCencle(val) {
+                this.cencleBtn = val;
+            },
+            isTextShow(val){
+                this.textShow = val
             }
         },
         
@@ -57,16 +71,15 @@
     top:50%;
     left: 55%;
     transform: translate(-50%, -50%);
-    text-align: center;
+    h4{ margin-bottom: 10px;}
     p{
         margin: 15px 0;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         color: #838383;
     }
     .btnBox{
         width: 100%;
-        padding: 10px 0;
-        text-align: center;
+        text-align: right;
         .v-btn{
             &:nth-child(2){
                 margin-left: 15px;
