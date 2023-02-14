@@ -36,28 +36,29 @@
 </template>
 <script>
 import Popup from '@/components/popup/SignUpPopup';
+import { login } from '@/api/index';
 import { useUserInfoStore } from '@/store/userInfo';
-    export default {
-        setup() {
-            const userInfo = useUserInfoStore();
-            return {
-                userInfo,
-                isShow: false,
-                password:'',
-                idRule: [
-                    value => !!value || '아이디를 입력해주세요.',
-                    value => (value && value.length >= 3) || '3자 이상 입력해주세요.'
-                ],
-                pwrules: {
-                    required: value => !!value || '비밀번호를 입력해주세요.',
-                    min: v => v.length >= 8 || '8자 이상 입력해주세요.',
-                },
-            }
-        },
-        methods: {
-           async loginSend(){
-                let apiUrl = process.env.VUE_APP_API_URL;
-                const res = await this.axios.post(`${apiUrl}/user/sign_in`, {username:this.userInfo.username, password:this.password})
+    
+export default {
+    setup() {
+        const userInfo = useUserInfoStore();
+        return {
+            userInfo,
+            isShow: false,
+            password:'',
+            idRule: [
+                value => !!value || '아이디를 입력해주세요.',
+                value => (value && value.length >= 3) || '3자 이상 입력해주세요.'
+            ],
+            pwrules: {
+                required: value => !!value || '비밀번호를 입력해주세요.',
+                min: v => v.length >= 8 || '8자 이상 입력해주세요.',
+            },
+        }
+    },
+    methods: {
+        async loginSend(){
+            const res = await login({username:this.userInfo.username, password:this.password})
                 if(res.data.code === 200) {
                     this.userInfo.token = {access_token:res.data.data}
                     this.$router.push('/home/pinia')

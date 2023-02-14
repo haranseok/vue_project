@@ -12,11 +12,9 @@
 </template>
 <script>
 import { useBoardInfoStore } from '@/store/board';
-import { useUserInfoStore } from '@/store/userInfo';
+import { boardGetOne } from '@/api/index';
 
-const token = useUserInfoStore();
 const board = useBoardInfoStore();
-let apiUrl = process.env.VUE_APP_API_URL;
 
     export default {
         data(){
@@ -27,14 +25,11 @@ let apiUrl = process.env.VUE_APP_API_URL;
             }
         },
         created() {
-            this.change()
+            this.boardDetail()
         },
         methods: {
-            async change(){
-            const res = await this.axios.get(`${apiUrl}/board/get_one`,
-                  { params:{id:this.board.boardContent.id}, 
-                    headers:token.token
-                  })
+            async boardDetail(){
+            const res = await boardGetOne({id:this.board.boardContent.id})
                   this.title = res.data.data.title;
                   this.content = res.data.data.content;
             },

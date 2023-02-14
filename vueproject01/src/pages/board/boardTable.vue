@@ -55,13 +55,11 @@
 import searchBar from '@/components/item/input/searchInput';
 import confirm from '@/components/popup/confirmPopup';
 import Create from '@/pages/board/boardCreate';
-import { useUserInfoStore } from '@/store/userInfo';
+import { getListApi, setDelete, setCreateWrite } from '@/api/index'
+
 import { useBoardInfoStore } from '@/store/board';
 
-const token = useUserInfoStore()
 const boardid = useBoardInfoStore()
-
-let apiUrl = process.env.VUE_APP_API_URL;
           
   export default {
     data () {
@@ -86,11 +84,9 @@ let apiUrl = process.env.VUE_APP_API_URL;
         Create,
     },
     methods: {
-        getList(){
-            this.axios.get(`${apiUrl}/board/list`, {
-                headers:token.token,
-            }).then((res)=>{
-                res.data.data.forEach((e) => {
+       async getList(){
+            let res = await getListApi();
+            res.data.data.forEach((e) => {
                 let list = [];
                     list.push(e['id'])
                     list.push(e['title'])
@@ -100,7 +96,6 @@ let apiUrl = process.env.VUE_APP_API_URL;
                     list.push('delete')
                     this.table.td.push(list)
                 })
-            })
         },
         confirmPopupShow(open, title, textShow, text, cencleBtn, btnText){
             this.isConfirm = open,
@@ -119,9 +114,8 @@ let apiUrl = process.env.VUE_APP_API_URL;
         },
         async confirmBtn(option){
             if(option === 1) {
-            // url, body, header 순으로 인자를 넘겨줘야함
-            const deleteApiRes = await this.axios.post(`${apiUrl}/board/delete`, {id:this.id},{headers:token.token});
-                if(deleteApiRes.data.code === 200){
+            let deleteApi = await setDelete({id:this.id})      
+                if(deleteApi.data.code === 200){
                     this.confirmPopupShow(true, '정상적으로 삭제되었습니다.', false, '', false, '확인')
                     this.table.td = []
                     this.getList()
@@ -138,7 +132,7 @@ let apiUrl = process.env.VUE_APP_API_URL;
             if(option === 0) {
                 this.isUpdate = false;
             }else{
-                await this.axios.post(`${apiUrl}/board/create`, data, {headers: token.token})
+               await setCreateWrite(data)
                 this.table.td = []
                 this.getList()
                 this.isUpdate = false;
