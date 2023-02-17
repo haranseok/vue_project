@@ -43,6 +43,16 @@ const router = createRouter({
                     component: () => import('@/pages/rnd/ChartRnd')
                 },
             ]
+        },
+        {
+            path: '/naver',
+            name: 'naver',
+            component: () => import('@/pages/rnd/SocialLoginRnd'),
+        },
+        {
+            path: '/user',
+            name: 'user',
+            component: () => import('@/pages/rnd/SocialUserInfoRnd')
         }
 
     ]
