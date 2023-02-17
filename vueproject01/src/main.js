@@ -24,3 +24,4 @@ app.use(vuetify)
 app.use(i18n)
 app.mount('#app')
 
+window.Kakao.init('7a1b2deeb0903f905ce7396bf9d826ac')

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div id="naver_id_login"></div>
-        <div id="custom-login-btn" @click="kakaoLogin()">카카오 로그인</div>
+        <div id="custom-login-btn" @click="doKakaoLogin()">카카오 로그인</div>
     </div>
 </template>
 <script>
@@ -25,10 +25,14 @@ export default {
     }
   },
   methods: {
-    kakaoLogin() {
-        console.log(window.kakao)
-    }
-  }
+    doKakaoLogin() {
+            const params = {
+                redirectUri: "http://192.168.0.90:81/user",
+            };
+            window.Kakao.Auth.authorize(params);
+            
+        },
+    },
 }
 </script>
 
