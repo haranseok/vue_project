@@ -10,34 +10,38 @@ const router = createRouter({
         {
             path: '/login',
             name: 'Login',
-            component: () => import('@/pages/Comm/AdminLogin')
+            component: () => import('@/pages/comm/AdminLogin')
         },
         {
             path: '/home',
             name: 'Home',
-            component: ()=> import('@/pages/MainHome'),
-            children:[
+            component: () => import('@/pages/MainHome'),
+            children: [
                 {
                     path: 'pinia',
                     name: 'Pinia',
-                    component: () => import('@/pages/RND/PiniaRnd')
+                    component: () => import('@/pages/rnd/PiniaRnd')
                 },
                 {
                     path: 'locale',
                     name: 'Locale',
-                    component: () => import('@/pages/RND/LocaleRnd')
+                    component: () => import('@/pages/rnd/LocaleRnd')
                 },
                 {
                     path: 'board',
                     name: 'Board',
-                    component: () => import('@/pages/board/boardView')
+                    component: () => import('@/pages/boards/BoardList')
                 },
                 {
                     path: 'chatting',
                     name: 'Chatting',
                     component: () => import('@/pages/ChattingApp')
                 },
-
+                {
+                    path: 'chart',
+                    name: 'chart',
+                    component: () => import('@/pages/rnd/ChartRnd')
+                },
             ]
         }
 

@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 export const useTodoListStore = defineStore('todo', {
     state: () => ({
         todoList: [], // todoList 담을 배열
-        id:0, // todoList index
+        id: 0, // todoList index
     }),
     actions: {
         // todo 추가
@@ -18,10 +18,10 @@ export const useTodoListStore = defineStore('todo', {
         },
         toggleCompleted(idToFind) {
             const todo = this.todoList.find((obj) => obj.id === idToFind);
-            if(todo) {
+            if (todo) {
                 todo.completed = !todo.completed
             }
         }
     },
-    
+
 })

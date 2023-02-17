@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia';
 
 export const useCounterStore = defineStore('counter', {
-    state: () => ({ count: 0, name: 'Metakingz' }),
+    state: () => ({ count: 0, name: null }),
     getters: {
-      doubleCount: (state) => state.count * 2,
+        doubleCount: (state) => state.count * 2,
     },
     actions: {
-      increment() {
-        this.count++
-      },
+        increment() {
+            this.count++
+        },
     },
-  })
+})

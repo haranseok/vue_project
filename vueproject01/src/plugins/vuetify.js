@@ -6,9 +6,9 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 
 export default createVuetify({
-    icons: {
-        iconfont: 'mai',
+        icons: {
+            iconfont: 'mai',
+        }
     }
-}
-  // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
+    // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 )

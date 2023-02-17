@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
 
 export const useBoardInfoStore = defineStore('boardInfo', {
-    state: () => ({boardContent:{id:null}}),
+    state: () => ({ boardContent: { id: null } }),
     actions: {
-        detailContent(content){
+        detailContent(content) {
             this.boardContent.id = content[0]
         }
     }
