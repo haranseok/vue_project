@@ -15,11 +15,13 @@ export default {
     naver_id_login.setState(state);
     // naver_id_login.setPopup(); // popup 설정을 위한 코드
     naver_id_login.init_naver_id_login();
-    console.log(naver_id_login.getAccessToken())
+    console.log(naver_id_login)
     if(naver_id_login.getAccessToken() !== undefined){
         console.log('access_token',naver_id_login.getAccessToken())
         localStorage.setItem('access_token',naver_id_login.getAccessToken());
-        this.$router.push('/user')    
+        location.href='https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=5mAAvwV9lZE3kQ82t5AF&redirect_uri=http://192.168.0.90:81/user&state=1234'
+
+        // this.$router.push('/user')    
     }else{
         this.$router.push('/naver')
     }
