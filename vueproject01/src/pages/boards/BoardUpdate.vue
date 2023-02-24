@@ -82,6 +82,7 @@ export default {
       limit: 7,
       totalCount: 3,
       page: 1,
+      isPagination: 0,
       isConfirm: false,
       isUpdate: false,
       table: {
@@ -90,7 +91,7 @@ export default {
       },
       boardid,
       userInfo,
-      userInfoStore
+      userInfoStore,
     }
   },
   async created() {

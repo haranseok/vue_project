@@ -1,12 +1,14 @@
 <template>
-    <div>
+    <div class="container">
         <div id="naver_id_login"></div>
-        <div id="custom-login-btn" @click="doKakaoLogin()">카카오 로그인</div>
+        <v-btn id="custom-login-btn" color="#FEE500" @click="doKakaoLogin()" prepend-icon="mdi-chat">카카오톡 로그인</v-btn>
+        <GoogleLogin :callback="callback"></GoogleLogin>
     </div>
 </template>
 <script>
 export default {
   mounted(){
+    console.log(this.callback)
     // naver
     
     const naver_id_login = new window.naver_id_login("5mAAvwV9lZE3kQ82t5AF", "http://192.168.0.90:81/naver");
@@ -21,7 +23,7 @@ export default {
         localStorage.setItem('access_token',naver_id_login.getAccessToken());
         location.href='https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=5mAAvwV9lZE3kQ82t5AF&redirect_uri=http://192.168.0.90:81/user&state=1234'
 
-        // this.$router.push('/user')    
+        this.$router.push('/user')    
     }else{
         this.$router.push('/naver')
     }
@@ -32,12 +34,16 @@ export default {
                 redirectUri: "http://192.168.0.90:81/user",
             };
             window.Kakao.Auth.authorize(params);
-            
         },
-    },
+  }
+
 }
 </script>
-
 <style lang="scss" scoped>
-
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 </style>

@@ -6,17 +6,16 @@ import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
 import i18n from './i18n'
 import dayjs from 'dayjs'
+import vue3GoogleLogin from 'vue3-google-login'
 const app = createApp(App)
 
-// import io from 'socket.io-client';
-// const socket = io('http://socket.test.secrettown.co.kr');
-// app.prototype.$socket = socket;
 
 app.provide("dayjs", dayjs);
 
 app.config.globalProperties.$dayjs = dayjs
 
 loadFonts()
+app.use(vue3GoogleLogin, {clientId:'803988286583-8903s8ggtvc7faamh0s84oc9ovniud52.apps.googleusercontent.com'})
 app.use(Store)
 app.use(Router)
 app.use(dayjs)
