@@ -1,9 +1,9 @@
 <template>
     <div class="container">
         <div id="naver_id_login"></div>
-        <v-btn id="custom-login-btn" color="#FEE500" @click="doKakaoLogin()" prepend-icon="mdi-chat">카카오톡 로그인</v-btn>
-        <v-btn @click="googleLogin">google login</v-btn>
-        <v-btn @click="facebookLogin">facebook login</v-btn>
+        <v-btn  color="#FEE500" @click="doKakaoLogin()" prepend-icon="mdi-chat">카카오톡 로그인</v-btn>
+        <v-btn @click="googleLogin" prepend-icon="mdi-google-plus">구글 로그인</v-btn>
+        <v-btn id="facebook_login" @click="facebookLogin" prepend-icon="mdi-facebook" color="#3b5998">페이스북 로그인</v-btn>
     </div>
 </template>
 <script>
@@ -80,5 +80,12 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    .v-btn{
+        width: 100%;
+        margin: 4% 0;
+    }
+    #facebook_login{
+        color: #fff;
+    }
 }
 </style>
