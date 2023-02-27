@@ -3,6 +3,9 @@
         naver userInfo: {{ user_id }}
         <v-btn @click="getLoginToken">인증</v-btn>
         <v-btn @click="getKakaoUserInfo">카카오정보</v-btn>
+        <div>
+            <p>닉네임: {{ nickName }}</p>
+        </div>
     </div>
 </template>
 
@@ -14,7 +17,8 @@ export default {
         return {
             token:'',
             user_id:'',
-            code:''
+            code:'',
+            nickName: '',
         }
     },
     created(){
@@ -51,20 +55,13 @@ export default {
             .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
             .join('&');
             const result = await Axios.post('https://kauth.kakao.com/oauth/token',queryString, {headers:kakaoHeader} )
-            console.log(result)
+            this.token = result.data.access_token
+            console.log(this.token)
         },
-        getKakaoUserInfo() {
-            let data = '';
-             window.kakao.API.request({
-                url: 'v2/user/me',
-                success: function(response) {
-                    data  = response;
-                },
-                fail: function (error) {
-                    console.log(error)
-                }
-            });
-            console.log(data)
+        async getKakaoUserInfo() {
+            const res = await Axios.post('http://192.168.0.45:5001/api/v1/kakao/getUserInfo',{token:this.token},{headers:{'Content-Type':'application/json'}})
+            console.log(res)
+            this.nickName = res.data.data.properties.nickname
         } 
     }
 }

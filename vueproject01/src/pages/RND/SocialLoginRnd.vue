@@ -58,7 +58,7 @@ export default {
                 console.log('access_token:'+ response.authResponse.accessToken)
         if (response.status === 'connected') {
           window.FB.api('/me', 'get', {fields: 'name,email'}, function(r) {
-
+            console.log(r)
             const facebook_email = r.email;
             const facebook_name = r.name;
 
