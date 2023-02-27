@@ -2,13 +2,13 @@
     <div class="container">
         <div id="naver_id_login"></div>
         <v-btn id="custom-login-btn" color="#FEE500" @click="doKakaoLogin()" prepend-icon="mdi-chat">카카오톡 로그인</v-btn>
-        <GoogleLogin :callback="callback"></GoogleLogin>
+            <div @click="googleLogin">google login</div>
     </div>
 </template>
 <script>
+import { googleTokenLogin } from "vue3-google-login"
 export default {
   mounted(){
-    console.log(this.callback)
     // naver
     
     const naver_id_login = new window.naver_id_login("5mAAvwV9lZE3kQ82t5AF", "http://192.168.0.90:81/naver");
@@ -35,6 +35,12 @@ export default {
             };
             window.Kakao.Auth.authorize(params);
         },
+    // google http://localhost:81/ ip주소로 등록이 안되어서 로컬호스트 url등록했음.
+    googleLogin(){
+            googleTokenLogin().then((response)=>{
+                console.log(response)
+            })
+        }
   }
 
 }
