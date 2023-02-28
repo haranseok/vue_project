@@ -1,7 +1,7 @@
 <template>
     <div>
         naver userInfo: {{ user_id }}
-        <v-btn @click="getLoginToken">인증</v-btn>
+        <v-btn @click="getNaverUserInfo">인증</v-btn>
         <v-btn @click="getKakaoUserInfo">카카오정보</v-btn>
         <div>
             <p>닉네임: {{ nickName }}</p>

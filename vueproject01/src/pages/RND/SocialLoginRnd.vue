@@ -82,7 +82,8 @@ export default {
     transform: translate(-50%, -50%);
     .v-btn{
         width: 100%;
-        margin: 4% 0;
+        margin: 3% 0;
+        font-weight: bold;
     }
     #facebook_login{
         color: #fff;
